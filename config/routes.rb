@@ -17,6 +17,7 @@ Seymour::Application.routes.draw do
 
   resources :meals
 
+  resources :plans
   # Sample resource route with options:
   #   resources :products do
   #     member do
