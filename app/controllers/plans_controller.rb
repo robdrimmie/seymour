@@ -10,7 +10,14 @@ class PlansController < ApplicationController
 
   def create
     @meal = Meal.find(params[:plan][:meal])
-    @plan = @meal.plans.build(params[:plan]["day"] )
+    @dayOfPlan = DateTime.civil_from_format( :local,
+                                 params[:plan]["day(1i)"].to_i,
+                                 params[:plan]["day(2i)"].to_i,
+                                 params[:plan]["day(3i)"].to_i,
+                                 0, 0, 0 )
+    logger.debug( @dayOfPlan )
+    logger.debug( "ROB WAS THERE" )
+    @plan = @meal.plans.create(:day => @dayOfPlan)
 
     respond_to do |format|
       if @plan.save
